@@ -1,0 +1,33 @@
+
+  <div class="container"><div class="col-md-10 col-md-offset-1">
+    <div class="row">
+      <% if (success.length > 0) { %>
+    <div class="alert alert-success"><%= success %></div>
+  <% } %>
+    <div class="col-md-1">
+        <a href="/questions/add" class="btn btn-lg btn-success">Post Question</a>
+    </div>
+  </div>
+
+  <table class="table table-bordered table-hover table-striped" style="margin-top: 20px">
+    <thead>
+      <tr>
+        <th>Questions</th>
+        <th>Responses</th>
+        <th>Votes</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <% for (var question of questions) { %>
+        <tr>
+          <td class="col-md-8"><a href="/questions/<%= question.slug %>"><%= question.title %></a></td>
+          <td class="col-md-2"><%= question.answer.length %></td>
+          <td class="col-md-2"><%= question.votes %></td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+  </div></div>
+  
+  

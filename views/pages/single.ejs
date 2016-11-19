@@ -1,0 +1,77 @@
+<div class="container">
+    <div class="col-md-8 col-md-offset-2 text-center">
+        <% if (success.length > 0) { %>
+            <div class="alert alert-success">
+                <%= success %>
+            </div>
+            <% }%>
+                <div class="well well-lg">
+                    <h1><%= question.title %></h1>
+                    <h5>Posted by: <strong><%= question.email %></strong> || Votes count: 
+                <% if (question.votes > 0) { %>
+                <strong style="color:green"><%= question.votes %></strong>
+                <% } else if (question.votes < 0){ %>
+                <strong style="color:red"><%= question.votes %></strong>
+                <% } else { %>
+                <strong><%= question.votes %></strong>
+                <% } %>
+                </h5>
+                    <a href="/questions/<%= question.slug %>/edit" class="btn btn-sm btn-warning"><span class="fa fa-pencil"></span></a>
+                    <a href="/questions/<%= question.slug %>/delete" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></a>
+                    <a href="/questions/<%= question.slug %>/voteup" class="btn btn-sm btn-primary"><span class="fa fa-thumbs-up"></span></a>
+                    <a href="/questions/<%= question.slug %>/votedown" class="btn btn-sm btn-primary"><span class="fa fa-thumbs-down"></span></a>
+                    <div class="question-content">
+                        <p>
+                            <%- question.content %>
+                        </p>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <% if (question.answer.length >= 0 && question.answer.length < 2) { %>
+                            <%= question.answer.length %> Answer
+                                <% } else { %>
+                                    <%= question.answer.length %> Answers
+                                        <% } %>
+                    </div>
+                    <ul class="list-group">
+                        <% for (var i=0;i<question.answer.length;i++) { %>
+                            <li class="list-group-item">
+                                <p>
+                                    <%= question.answer[i].answer_content %>
+                                </p>
+                                <h6>Posted by: <%= question.answer[i].answer_email %> || Votes count: 
+                                    <% if (question.answer[i].answer_votes > 0) { %>
+                                    <strong style="color:green"><%= question.answer[i].answer_votes %></strong>
+                                    <% } else if (question.answer[i].answer_votes < 0){ %>
+                                    <strong style="color:red"><%= question.answer[i].answer_votes %></strong>
+                                    <% } else { %>
+                                    <strong><%= question.answer[i].answer_votes %></strong>
+                                    <% } %>
+                                </h6>
+                                <a href="/questions/<%= question.slug %>/<%= i %>/voteanswerup" class="btn btn-xs btn-default"><span class="fa fa-thumbs-up"></span></a>
+                                <a href="/questions/<%= question.slug %>/<%= i %>/voteanswerdown" class="btn btn-xs btn-default"><span class="fa fa-thumbs-down"></span></a>
+                            </li>
+                            <% } %>
+                    </ul>
+                </div>
+                <div class="panel panel-default" style="margin-top: 30px">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Your Answer</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form action="/questions/<%= question.slug %>/answer" method="POST">
+                            <div class="form-group">
+                                <textarea name="answer_content" rows="6" class="form-control" placeholder="Enter answer"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="answer_email" class="form-control" placeholder="Enter email address">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-sm">Post answer</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+    </div>
+</div>
